@@ -45,6 +45,14 @@ macro_rules! id_u64 {
                     }
                 }
 
+                #[doc = concat!("Attempts to creates a new ", stringify!($name), " from a u64.")]
+                /// # Errors
+                /// Returns an [`core::num::TryFromIntError`] if the id is 0.
+                #[inline]
+                pub fn try_from_u64(id: u64) -> Result<Self, core::num::TryFromIntError> {
+                    NonZeroU64::try_from(id).map(Self)
+                }
+
                 /// Retrieves the inner `id` as a [`u64`].
                 #[inline]
                 #[must_use]
